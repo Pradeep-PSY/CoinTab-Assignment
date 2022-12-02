@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const bcrypt = require('bcrypt');
+const userModel = require('../model/user.model');
 const userController = Router();
 
 userController.post('/user', async (req, res) => {
@@ -12,7 +13,7 @@ userController.post('/user', async (req, res) => {
     
         const new_user = new userModel({ email, name, password: hash, phone});
     
-        await new_user.save();
+        await new_user.save().then((res)=>console.log(res)).catch(err=>res.send('user already exists'));
     
         res.send("signup successfull");
       });

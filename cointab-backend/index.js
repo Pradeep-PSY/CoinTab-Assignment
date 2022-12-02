@@ -1,6 +1,7 @@
 const express = require('express');
 const connection = require('./config/db');
 const cors = require('cors');
+const userController = require('./controller/userController');
 
 const app = express();
 
