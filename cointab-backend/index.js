@@ -1,7 +1,9 @@
 const express = require('express');
 const connection = require('./config/db');
 const cors = require('cors');
+const session = require('express-session');
 const userController = require('./controller/userController');
+const homeController = require('./controller/homeController');
 
 const app = express();
 
@@ -13,7 +15,16 @@ app.get('/', (req,res)=>{
     res.send('welcome to cointab backend')
 })
 
-app.use('/register', userController)
+app.use(session({
+    secret: 'cointab',
+    resave: false,
+    saveUninitialized: true,
+   
+  }))
+
+app.use('/user', userController);
+
+app.use('/home', homeController);
 
 app.listen(5000, async ()=>{
     try{
