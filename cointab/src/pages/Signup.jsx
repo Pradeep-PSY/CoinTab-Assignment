@@ -18,7 +18,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-// import { signupApi } from '../actions/action';
+import { SignupApi } from '../actions/Action.js';
+
 
 
 
@@ -27,6 +28,7 @@ const Signup = () => {
     const toast = useToast();
 
     const navigate = useNavigate();
+    const { msg } = useSelector(state => state.auth)
 
     const [signup, setSignup] = useState({
         password: '',
@@ -42,7 +44,7 @@ const Signup = () => {
         });
     };
     const handleSignup = () => {
-        // dispatch(signupApi(signup));
+        dispatch(SignupApi(signup));
     };
 
 
@@ -57,7 +59,16 @@ const Signup = () => {
         //    else if(isAuth && role === 'user'){
         //     navigate('/quiz')
         //    }
-    },[])
+        if(msg.length > 0){
+
+            toast({
+                title: `${msg} `,
+            position: 'top',
+            status: 'success',
+            isClosable: true,
+          })
+        }
+    },[msg])
 
     return (
         <>

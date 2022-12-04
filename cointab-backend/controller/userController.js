@@ -6,14 +6,14 @@ const userModel = require("../model/user.model");
 const userController = Router();
 
 userController.post("/register", async (req, res) => {
-  const { name, email, password, phone } = req.body;
+  const { name, email, password } = req.body;
 
   bcrypt.hash(password, 8, async function (err, hash) {
     if (err) {
-      return res.send("singup failed");
+      return res.send("singup failed, something went wrong try again later");
     }
 
-    const new_user = new userModel({ email, name, password: hash, phone });
+    const new_user = new userModel({ email, name, password: hash});
 
     await new_user
       .save()
@@ -80,13 +80,13 @@ userController.post('/login', async (req, res) => {
             // console.log(unlockTime)
 
 
-            if(unlockTime >= 3600){
+            if(unlockTime >= 86400){
                 let new_unk = await userModel.findOneAndUpdate({email},{ $set:{count: 0,block:false,logTime:[]}},{new:true})
                 await new_unk.save();
             }
             else{
                 console.log(3600 - unlockTime,'time')
-                if(3600 - unlockTime > 3600){
+                if(86400 - unlockTime > 3600){
 
                     return res.send(`Try  ${Math.floor(Math.floor((86400-unlockTime)/60)/60)} hours`)
                 }
@@ -104,9 +104,13 @@ userController.post('/login', async (req, res) => {
 })
 
 userController.get('/logout', async (req, res) =>{
+  return res.send({message: "Logout Successfully", isAuth: false})
     req.session.destroy(function(err) {
         if(err) {
-           return res.send({message: "Logout Successfully", isAuth: false})
+          return res.send({message: "Logout Successfully", isAuth: false})
+        }
+        else{
+          
         }
       })
 })

@@ -19,9 +19,9 @@ import {
 import { FaUserAlt, FaLock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-// import { loginApi } from '../actions/action';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { LoginApi } from '../actions/Action';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -34,22 +34,29 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // const {isAuth, role} =useSelector(state=>state.auth)
+    const {isAuth, msg} =useSelector(state=>state.auth)
 
     const handleSubmit = () => {
 
-        // dispatch(loginApi({email,password}))
+        dispatch(LoginApi({email,password}))
        
     };
 
     useEffect(()=>{
-        // if(isAuth && role === 'admin'){
-        //     navigate('/admin_dashboard')
-        //    }
-        //    else if(isAuth && role === 'user'){
-        //     navigate('/quiz')
-        //    }
-    },[])
+        if(isAuth ){
+            navigate('/portal')
+           }
+           
+        // if(msg.length > 0){
+
+        //     toast({
+        //         title: `${msg} `,
+        //     position: 'top',
+        //     status: 'success',
+        //     isClosable: true,
+        //   })
+        // }
+    },[isAuth,dispatch])
    
     const handleShowClick = () => setShowPassword(!showPassword);
     return (

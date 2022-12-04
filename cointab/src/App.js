@@ -1,21 +1,17 @@
 import React from 'react';
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
+
   theme,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
 import MainRoutes from './pages/MainRoutes';
+import Navbar from './components/Navbar';
 
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
+      <Navbar />
       <MainRoutes />
     </ChakraProvider>
   );
