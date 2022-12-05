@@ -18,7 +18,7 @@ app.get('/', (req,res)=>{
 app.use(session({
     secret: 'cointab',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
    
   }))
 
