@@ -2,18 +2,20 @@ const jwt = require('jsonwebtoken');
 
 
 const authentication = (req,res,next) =>{
-    if(!req.session.token) return res.send('Retry again')
+    console.log(req.session)
+    if(!req.session.tok) return res.send('Retry again')
     
-    const token = req.session.token;
+    const token = req.session.tok;
     
     jwt.verify(token,'userbase', (err,decoded)=>{
         if(err){
             return res.send('login failed')
         }
 
-        
+        console.log(decoded)
         if(decoded){
-          res.body.email =  decoded.email;  
+
+          req.body.email =  decoded.email;  
             next()
         }
     })

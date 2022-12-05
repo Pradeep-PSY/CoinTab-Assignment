@@ -45,7 +45,7 @@ userController.post('/login', async (req, res) => {
         { email, userId: user._id, name: user.name },
         "userbase"
       );
-
+        console.log(token)
       req.session.tok = token;
       let new_unk = await userModel.findOneAndUpdate({email},{ $set:{count: 0,block:false,logTime:[]}},{new:true})
       await new_unk.save();
@@ -64,6 +64,12 @@ userController.post('/login', async (req, res) => {
                 await new_upd.save();
                 
             }
+            else if(user.count == 4){
+              user.logTime.push(Date.now())
+              let new_mod = await userModel.findOneAndUpdate({email},{ $set:{count: user.count,logTime:user.logTime}},{new:true})
+                await new_mod.save();
+              return res.send('only one last attempt is left, after that ur block for 24hours ')
+            }
             else{
                 user.logTime.push(Date.now())
                 // console.log(user)
@@ -73,19 +79,19 @@ userController.post('/login', async (req, res) => {
         }
         else{
             let lastTime = user.logTime[4];
-            // console.log(lastTime);
+            console.log(lastTime);
             let end = Date.now() - lastTime;
             let unlockTime = Math.floor(end / 1000)
             // let unlockTime = 90000
-            // console.log(unlockTime)
+            console.log(unlockTime)
 
 
-            if(unlockTime >= 86400){
+            if(unlockTime >= 300){
                 let new_unk = await userModel.findOneAndUpdate({email},{ $set:{count: 0,block:false,logTime:[]}},{new:true})
                 await new_unk.save();
             }
             else{
-                console.log(3600 - unlockTime,'time')
+                console.log(86400 - unlockTime,'time')
                 if(86400 - unlockTime > 3600){
 
                     return res.send(`Try  ${Math.floor(Math.floor((86400-unlockTime)/60)/60)} hours`)
@@ -104,15 +110,21 @@ userController.post('/login', async (req, res) => {
 })
 
 userController.get('/logout', async (req, res) =>{
-  return res.send({message: "Logout Successfully", isAuth: false})
-    req.session.destroy(function(err) {
+  // return res.send({message: "Logout Successfully", isAuth: false})
+   let x = req.session.destroy(function(err) {
         if(err) {
-          return res.send({message: "Logout Successfully", isAuth: false})
+          return false
         }
         else{
-          
+          return true
         }
       })
+
+      if(x == false){
+        return  res.send({message: "Logout Successfully", isAuth: false})
+      }
+    else res.send({message: "Logout Successfully", isAuth: false})
+
 })
 
 

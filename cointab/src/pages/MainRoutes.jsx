@@ -14,7 +14,7 @@ const MainRoutes = () => {
       <Route path='/portal' element={
         <RequiredAuth >
           <Portal />
-        </RequiredAuth>
+         </RequiredAuth>
       } />
     </Routes>
   )
