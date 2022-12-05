@@ -111,19 +111,17 @@ userController.post('/login', async (req, res) => {
 
 userController.get('/logout', async (req, res) =>{
   // return res.send({message: "Logout Successfully", isAuth: false})
-   let x = req.session.destroy(function(err) {
+    req.session.destroy(function(err) {
         if(err) {
-          return false
+          return err
         }
-        else{
-          return true
-        }
+       
+        return  res.send({message: "Logout Successfully", isAuth: false})
       })
 
-      if(x == false){
-        return  res.send({message: "Logout Successfully", isAuth: false})
-      }
-    else res.send({message: "Logout Successfully", isAuth: false})
+    //   if(x == false){
+    //   }
+    // else res.send({message: "Logout Successfully", isAuth: false})
 
 })
 
