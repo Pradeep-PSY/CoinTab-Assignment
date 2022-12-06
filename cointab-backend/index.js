@@ -26,7 +26,8 @@ app.use(
     secret: "cointab",
     resave: false,
     saveUninitialized: false,
-    Store: store,
+    store: store,
+    cookie:{maxAge: 3000}
   })
 );
 
