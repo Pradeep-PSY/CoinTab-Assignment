@@ -27,7 +27,7 @@ export const loginReducer = (state = initialstate, {type, payload}) => {
         }
         case LOGOUT_SUCCESS :{
             alert(`${payload.message}`)
-            console.log(payload)
+            // console.log(payload)
             return {
                 ...state,
                 msg: payload.message,
@@ -36,7 +36,7 @@ export const loginReducer = (state = initialstate, {type, payload}) => {
         }
 
         case GET_USER_SUCCESS :{
-            console.log(payload,'payload')
+            // console.log(payload,'payload')
             return {
                 ...state,
                 data: payload

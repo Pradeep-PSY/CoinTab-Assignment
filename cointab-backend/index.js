@@ -13,21 +13,21 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.send("welcome to cointab backend");
+  res.send("welcome to cointab backend");
 });
 
 const store = new MongoDBSession({
-    uri: process.env.MONGO_URL,
-    collection: "mySessions",
+  uri: process.env.MONGO_URL,
+  collection: "mySessions",
 });
 
 app.use(
-    session({
-        secret: "cointab",
-        resave: false,
-        saveUninitialized: false,
-        Store: store,
-    })
+  session({
+    secret: "cointab",
+    resave: false,
+    saveUninitialized: false,
+    Store: store,
+  })
 );
 
 app.use("/user", userController);
@@ -35,11 +35,11 @@ app.use("/user", userController);
 app.use("/home", homeController);
 
 app.listen(5000, async () => {
-    try {
-        await connection;
-        console.log("database is connected");
-    } catch (err) {
-        console.log("connection error", err);
-    }
-    console.log("server is started");
+  try {
+    await connection;
+    console.log("database is connected");
+  } catch (err) {
+    console.log("connection error", err);
+  }
+  console.log("server is started");
 });

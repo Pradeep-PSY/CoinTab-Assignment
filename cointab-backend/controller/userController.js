@@ -68,7 +68,7 @@ userController.post('/login', async (req, res) => {
               user.logTime.push(Date.now())
               let new_mod = await userModel.findOneAndUpdate({email},{ $set:{count: user.count,logTime:user.logTime}},{new:true})
                 await new_mod.save();
-              return res.send('only one last attempt is left, after that ur block for 24hours ')
+              return res.send({message:'only one last attempt is left, after that ur block for 24hours '})
             }
             else{
                 user.logTime.push(Date.now())
