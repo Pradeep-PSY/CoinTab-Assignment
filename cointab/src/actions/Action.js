@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const SignupApi = (data) => dispatch => {
   axios
-    .post('http://localhost:5000/user/register',data)
+    .post('https://cointab-assign.onrender.com/user/register',data)
     .then(res => dispatch({ type: SIGNUP_SUCCESS, payload: res.data }))
     .catch(err => console.log(err));
 };
@@ -13,14 +13,14 @@ let email;
 export const LoginApi = (data) => dispatch =>{
     email=data.email
     axios
-    .post('http://localhost:5000/user/login',data)
+    .post('https://cointab-assign.onrender.com/user/login',data)
     .then(res => dispatch({ type: LOGIN_SUCCESS, payload: res.data }))
     .catch(err => console.log(err));
 }
 
 export const LogoutApi = () => dispatch =>{
     axios
-    .get('http://localhost:5000/user/logout',)
+    .get('https://cointab-assign.onrender.com/user/logout',)
     .then(res => dispatch({ type: LOGOUT_SUCCESS, payload: res.data }))
     .catch(err => console.log(err));
 }
@@ -28,7 +28,7 @@ export const LogoutApi = () => dispatch =>{
 
 export const getData = () => dispatch => {
     axios
-    .post('http://localhost:5000/home/',{email})
+    .post('https://cointab-assign.onrender.com/home/',{email})
     .then(res => dispatch({ type: GET_USER_SUCCESS, payload: res.data }))
     .catch(err => console.log(err));
 }
