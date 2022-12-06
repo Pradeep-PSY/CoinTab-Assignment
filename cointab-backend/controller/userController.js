@@ -86,7 +86,7 @@ userController.post('/login', async (req, res) => {
             console.log(unlockTime)
 
 
-            if(unlockTime >= 300){
+            if(unlockTime >= 86400){
                 let new_unk = await userModel.findOneAndUpdate({email},{ $set:{count: 0,block:false,logTime:[]}},{new:true})
                 await new_unk.save();
             }

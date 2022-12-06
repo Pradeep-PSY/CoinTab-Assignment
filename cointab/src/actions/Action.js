@@ -28,7 +28,7 @@ export const LogoutApi = () => dispatch =>{
 
 export const getData = () => dispatch => {
     axios
-    .post('http://localhost:5000/home/')
+    .post('http://localhost:5000/home/',{email})
     .then(res => dispatch({ type: GET_USER_SUCCESS, payload: res.data }))
     .catch(err => console.log(err));
 }
