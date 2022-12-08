@@ -45,7 +45,7 @@ userController.post('/login', async (req, res) => {
         { email, userId: user._id, name: user.name },
         "userbase"
       );
-        console.log(token)
+        // console.log(token)
       req.session.tok = token;
       let new_unk = await userModel.findOneAndUpdate({email},{ $set:{count: 0,block:false,logTime:[]}},{new:true})
       await new_unk.save();
@@ -79,11 +79,11 @@ userController.post('/login', async (req, res) => {
         }
         else{
             let lastTime = user.logTime[4];
-            console.log(lastTime);
+            // console.log(lastTime);
             let end = Date.now() - lastTime;
             let unlockTime = Math.floor(end / 1000)
             // let unlockTime = 90000
-            console.log(unlockTime)
+            // console.log(unlockTime)
 
 
             if(unlockTime >= 86400){
@@ -91,10 +91,10 @@ userController.post('/login', async (req, res) => {
                 await new_unk.save();
             }
             else{
-                console.log(86400 - unlockTime,'time')
+                // console.log(86400 - unlockTime,'time')
                 if(86400 - unlockTime > 3600){
 
-                    return res.send(`Try  ${Math.floor(Math.floor((86400-unlockTime)/60)/60)} hours`)
+                    return res.send(`Try after ${Math.floor(Math.floor((86400-unlockTime)/60)/60)} hours`)
                 }
                 else{
                     

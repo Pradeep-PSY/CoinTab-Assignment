@@ -7,7 +7,7 @@ import { getData } from '../actions/Action'
 const Portal = () => {
     const dispatch = useDispatch();
     const { data } = useSelector(state => state.auth)
-    console.log(data);
+    // console.log(data);
 
 
     useEffect(() => {

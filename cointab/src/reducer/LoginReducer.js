@@ -17,7 +17,7 @@ export const loginReducer = (state = initialstate, {type, payload}) => {
             }
         }
         case LOGIN_SUCCESS :{
-            console.log(payload)
+            // console.log(payload)
             alert(`${payload.message}`)
             return {
                 ...state,
